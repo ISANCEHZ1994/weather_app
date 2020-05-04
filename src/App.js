@@ -7,17 +7,17 @@ const api = {
 
 function App() {
 
-  const [query, setQuery] = useState('');
-  const [weather, setWeather] = useState({});
+  const [query, setQuery] = useState(''); // the location of what we are looking for 
+  const [weather, setWeather] = useState({}); 
 
-  const search = evt => {
+  const search = (evt) => {
     if (evt.key === "Enter") {
-      fetch(`${api.base}weather?q=${query}&units=metric&APPID=${api.key}`)
-        .then(res => res.json())
+      fetch(`${api.base}weather?q=${query}&units=metric&APPID=${api.key}`) // we want to grab the information from the openweathermap site - a usual fetch 
+        .then(res => res.json()) // make it readable thru JSON
         .then(result => {
           setWeather(result);
-          setQuery('');
-          console.log(result);
+          setQuery(''); // once we've submitted it we can start typing a different place
+          console.log(result)
         });
     }
   }
@@ -27,7 +27,7 @@ function App() {
     let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
     let day = days[d.getDay()]; //will return a number between 0 - 6 INDEX
-    let date = d.getDate(); // 
+    let date = d.getDate(); 
     let month = months[d.getMonth()]; // returns a number between 0 - 11 
     let year = d.getFullYear(); // returns the full year
 
@@ -35,7 +35,7 @@ function App() {
   }
 
   return (
-    <div className={(typeof weather.main != "undefined") ? ((weather.main.temp > 16) ? 'app warm' : 'app') : 'app'}>
+    <div className='app'>
       <main> 
         <div className="search-box"> 
               <input 
@@ -47,20 +47,20 @@ function App() {
               onKeyPress={search}
               />
         </div>
-        {(typeof weather.main != "undefined") ? (
+       
         <div>
           <div className="location-box">
-            <div className="location">{weather.name}, {weather.sys.country}</div>
+            <div className="location">New York City</div>
             <div className="date">{dateBuilder(new Date())}</div>
           </div>
           <div className="weather-box">
             <div className="temp">
-              {Math.round(weather.main.temp)}°c
+              15°F
             </div>
-            <div className="weather">{weather.weather[0].main}</div>
+            <div className="weather">Sunny </div>
           </div>
         </div>
-        ) : ('')}
+    
       </main>
     </div>
   );
