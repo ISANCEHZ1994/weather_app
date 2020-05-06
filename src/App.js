@@ -43,7 +43,12 @@ function App() {
   }
 
   return (
-    <div className='app'>
+    <div className={
+      (typeof weather.main != 'undefined') // if we havent searched for anything yet the class name is going to be app = what the end 'app' is doing
+      ? (Math.round(convertToF(weather.main.temp) > 70) // if it isnt undefined its going to check if the temp is above 70 degrees
+      ? 'app warm' // if it is above 70 then class name becomes 'app warm'
+      : 'app') // otherwise we just call it app
+      : 'app' }>
       <main> 
         <div className="search-box"> 
               <input 
