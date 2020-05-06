@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 const api = {
-  key: '308ca65725075e2afc59f887c9ea2cf7',
-  base: 'https://api.openweathermap.org/data/2.5'
+  key: "308ca65725075e2afc59f887c9ea2cf7",
+  base: "https://api.openweathermap.org/data/2.5/" // if it's in single quotation marks then the program will not work - might as well change key variable to double qutoes as well
 }
 
 
@@ -47,10 +47,10 @@ function App() {
               onKeyPress={search}
               />
         </div>
-       
-        <div>
+       {(typeof weather.main !== 'undefined') ? (
+        <div> {/* you MUST have something to wrap around the entire thing you want to return */}
           <div className="location-box">
-            <div className="location">New York City</div>
+            <div className="location"> {weather.name}, {weather.sys.country} </div> {/* weather.sys.country will throw an error so we need to have a check as in a ternary */}
             <div className="date">{dateBuilder(new Date())}</div>
           </div>
           <div className="weather-box">
@@ -60,7 +60,7 @@ function App() {
             <div className="weather">Sunny </div>
           </div>
         </div>
-    
+       ) : '' }
       </main>
     </div>
   );
