@@ -8,14 +8,14 @@ const api = {
 function App() {
 
   const [query, setQuery] = useState(''); // the location of what we are looking for 
-  const [weather, setWeather] = useState({}); 
+  const [weather, setWeather] = useState({}); // you want to put all that fetched information into an empty object to go thru and grab info
 
   const search = (evt) => {
     if (evt.key === "Enter") {
       fetch(`${api.base}weather?q=${query}&units=metric&APPID=${api.key}`) // we want to grab the information from the openweathermap site - a usual fetch 
         .then(res => res.json()) // make it readable thru JSON
         .then(result => {
-          setWeather(result);
+          setWeather(result); // we filled the empty object using the function setWeather in our Hooks
           setQuery(''); // once we've submitted it we can start typing a different place
           console.log(result)
         });
@@ -32,6 +32,14 @@ function App() {
     let year = d.getFullYear(); // returns the full year
 
     return `${day} ${date} ${month} ${year}`
+  }
+
+  function convertToF(celsius) { //https://medium.com/@DylanAttal/convert-celsius-to-fahrenheit-in-javascript-b6b76b47c4f0 <--- this is how I found out how to change it to Fahrenheit
+    // make the given fahrenheit variable equal the given celsius value
+    // multiply the given celsius value by 9/5 then add 32
+    let fahrenheit = celsius * 9/5 + 32
+    // return the variable fahrenheit as the answer
+    return fahrenheit;
   }
 
   return (
@@ -55,9 +63,9 @@ function App() {
           </div>
           <div className="weather-box">
             <div className="temp">
-              15°F
+              {Math.round(convertToF(weather.main.temp))}°F
             </div>
-            <div className="weather">Sunny </div>
+            <div className="weather"> {weather.weather[0].main} </div>
           </div>
         </div>
        ) : '' }
