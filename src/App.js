@@ -4,7 +4,6 @@ const api = {
   base: "https://api.openweathermap.org/data/2.5/" // if it's in single quotation marks then the program will not work - might as well change key variable to double qutoes as well
 }
 
-
 function App() {
 
   const [query, setQuery] = useState(''); // the location of what we are looking for 
